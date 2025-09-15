@@ -6,10 +6,11 @@ import Loader from '../Loader/Loader';
 import SearchBar from '../SearchBar/SearchBar';
 import css from './App.module.css';
 import toast, { Toaster } from 'react-hot-toast';
-import MoveGrid from '../MovieGrid/MovieGrid';
+import MovieGrid from '../MovieGrid/MovieGrid';
 import MovieModal from '../MovieModal/MovieModal';
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
-import Paginate from '../Paginate/Paginate';
+import ReactPaginate from '../ReactPaginate/ReactPaginate';
+
 
 function App() {
   const [searchValue, setSearchValue] = useState('');
@@ -21,7 +22,7 @@ function App() {
     setCurrentPage(1);
   };
 
-  const { data, isLoading, isError } = useQuery({
+  const { data, isLoading, isError, isSuccess } = useQuery({
     queryKey: ['movies', searchValue, currentPage],
     queryFn: () => fetchMovies(searchValue, currentPage),
     enabled: Boolean(searchValue),
@@ -45,15 +46,15 @@ function App() {
   return (
     <div className={css.app}>
       <SearchBar onSubmit={handleSearch} />
-      {data && data.total_pages > 1 && (
-        <Paginate
-          totalPages={data.total_pages}
-          page={currentPage}
-          setPage={setCurrentPage}
+      {isSuccess && data && data.total_pages > 1 && (
+        <ReactPaginate
+          pageCount={data.total_pages}
+          forcePage={(currentPage - 1)}
+          onPageChange={setCurrentPage}
         />
       )}
       {data && data.results.length > 0 && (
-        <MoveGrid movies={data.results} onSelect={handleSelect} />
+        <MovieGrid movies={data.results} onSelect={handleSelect} />
       )}
       {isLoading && <Loader />}
       {isError && <ErrorMessage />}

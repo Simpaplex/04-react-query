@@ -2,13 +2,13 @@ import type { Movie } from '../../types/movie';
 import MovieGridItem from '../MovieGridItem/MovieGridItem';
 import css from './MovieGrid.module.css';
 
-interface MoveGridProps {
+interface MovieGridProps {
   movies: Movie[];
   onSelect: (movie: Movie) => void;
 }
 
 
-function MoveGrid({ movies, onSelect}: MoveGridProps) {
+function MovieGrid({ movies, onSelect}: MovieGridProps) {
   return (
     <ul className={css.grid}>
       {movies.map(item => (
@@ -18,4 +18,4 @@ function MoveGrid({ movies, onSelect}: MoveGridProps) {
   );
 }
 
-export default MoveGrid;
+export default MovieGrid;

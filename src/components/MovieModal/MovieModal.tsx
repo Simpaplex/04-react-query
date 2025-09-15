@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import type { Movie } from "../../types/movie";
 import css from "./MovieModal.module.css"
 import DefaultImage from "../DefaultImage/DefaultImage";
+import { createPortal } from "react-dom";
 
 interface MovieModalProps {
   movie: Movie;
@@ -34,10 +35,7 @@ function handleOverlayClick (event: React.MouseEvent<HTMLDivElement>) {
   }
 };
 
-
-
-
-  return (
+  return createPortal(
     <div
       className={css.backdrop}
       role="dialog"
@@ -67,8 +65,9 @@ function handleOverlayClick (event: React.MouseEvent<HTMLDivElement>) {
           </p>
         </div>
       </div>
-    </div>
+    </div>, document.body
   );
 }
+
 
 export default MovieModal;
