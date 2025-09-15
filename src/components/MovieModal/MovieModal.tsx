@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import type { Movie } from "../../types/movie";
 import css from "./MovieModal.module.css"
+import DefaultImage from "../DefaultImage/DefaultImage";
 
 interface MovieModalProps {
   movie: Movie;
@@ -54,7 +55,7 @@ function handleOverlayClick (event: React.MouseEvent<HTMLDivElement>) {
             src={`${BASE_ORIGINAL_IMAGE_URL}${movie.backdrop_path}`}
             alt={movie.title}
             className={css.image}
-          /> : <p>NO IMAGE</p>}
+          /> : <DefaultImage/>}
         <div className={css.content}>
           <h2>{movie.title}</h2>
           <p>{movie.overview}</p>

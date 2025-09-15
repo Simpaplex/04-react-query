@@ -1,4 +1,5 @@
 import type { Movie } from '../../types/movie';
+import DefaultImage from '../DefaultImage/DefaultImage';
 import css from './MovieGrid.module.css';
 
 interface MoveGridProps {
@@ -14,12 +15,12 @@ function MoveGrid({ movies, onSelect}: MoveGridProps) {
       {movies.map(el => (
         <li key={el.id} onClick={() => onSelect(el)}>
           <div className={css.card}>
-            <img
+            {el.backdrop_path?<img
               className={css.image}
-              src={el.backdrop_path?`${BASE_IMAGE_URL}${el.backdrop_path}`:'/public/film.svg'}
+              src={`${BASE_IMAGE_URL}${el.poster_path}`}
               alt={el.title}
               loading="lazy"
-            />
+            />:<DefaultImage/>}
             <h2 className={css.title}>{el.title}</h2>
           </div>
         </li>
